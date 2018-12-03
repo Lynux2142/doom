@@ -20,7 +20,7 @@ SRCS_FILES				= $(addsuffix .c, main bresenham display print_env \
 						  check_and_stock_map init minimap raycasting copy_struct \
 						  input_device movements movements2 tools tools2 tools3 \
 						  print_stamina_bar refresh_events init2 \
-						  door end sound)
+						  door end sound fc_casting)
 SRCS					= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS					= $(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
 SRCS_DIR				= srcs/

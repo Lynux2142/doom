@@ -361,5 +361,6 @@ void			scale_img(t_img *dst, t_img *src);
 void			it_is_the_end(t_all *all);
 void			mute_sound(t_all *all);
 void			init_xpm(t_mlx ptr, t_img *img, char *path);
+void		    floor_casting(t_all *all, int row, int lines);
 
 #endif
