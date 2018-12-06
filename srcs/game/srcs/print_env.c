@@ -134,11 +134,26 @@ void    floor_casting(t_all *all, int row, int lines) {
 
     cur = WINY / (2.0f * lines - WINY);
     weight = cur / all->rc.ray.dist;
+	if (row == WINY) {
+		printf("cur: %f\n", cur);
+		printf("weight %f\n", weight);
+		printf("all->rc.ray.fx %f\n", all->rc.ray.fx);
+		printf("all->rc.ray.fy %f\n", all->rc.ray.fy);
+		printf("all->p.x %f\n", all->p.x);
+		printf("all->p.y %f\n", all->p.y);
+	}
+
     fx = (int)((weight * all->rc.ray.fx + (1.0f - weight) * all->p.x) *
-        all->textures.img_w.width) % all->textures.img_w.width;
+        all->textures.img_d.width) % all->textures.img_d.width;
     fy = (int)((weight * all->rc.ray.fy + (1.0f - weight) * all->p.y) *
-        all->textures.img_w.height) % all->textures.img_w.height;
-    ft_fill_pixel(&all->fp, row, lines, ft_color_textures(&all->textures.img_w,
+        all->textures.img_d.height) % all->textures.img_d.height;
+		
+
+	if (row == WINY) {
+		printf("fx: %d\n", fx);
+		printf("fy: %d\n", fy);
+	}
+    ft_fill_pixel(&all->fp, row, lines, ft_color_textures(&all->textures.img_d,
         fx, fy));
 
 //     fx = (int)((weight * all->rc.ray.fx + (1.0f - weight) * all->p.x) *
