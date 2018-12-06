@@ -98,7 +98,7 @@ void			ft_print_on_screen(t_all *all, int x, double lens)
 		if ((double)i <= (all->start_wall - (h * (2.0 + all->wall_gap))))
 			ft_fill_pixel(&all->fp, x, i, TOP);
 		else if ((double)i >= (all->start_wall + (h * (2.0 - all->wall_gap))))
-			floor_casting(all, x, i, h * 4.0);
+			floor_casting(all, x, i);
 			// ft_fill_pixel(&all->fp, x, i, BOTTOM);
 		else
 			ft_print_textures(all, x, i, h * 4.0);
@@ -106,50 +106,51 @@ void			ft_print_on_screen(t_all *all, int x, double lens)
 }
 
 
-void    floor_casting(t_all *all, int row, int lines, double h) {
+void    floor_casting(t_all *all, int x, int i) {
 
     float	cur;
 	float	weight;
 	int		fx;
 	int 	fy;
 	int 	col;
-	double 	cpt;
+	// double 	cpt;
 
-	(void)h;
-
-	cpt = ((double)row - (all->start_wall - ((h / 4.0) * (2.0 + all->wall_gap))))
-			* (BLOCK_SIZE / h) - (BLOCK_SIZE / 2.0);
 	if (all->rc.ray.hit == N_W || all->rc.ray.hit == S_W)
 		col = (int)(all->rc.ray.x - ft_roundminf(all->rc.ray.x, BLOCK_SIZE));
 	else
 		col = (int)(all->rc.ray.y - ft_roundminf(all->rc.ray.y, BLOCK_SIZE));
 
-    cur = WINY / ((2.0f) * lines - WINY);
-    weight = cur / (all->rc.ray.dist / (int)BLOCK_SIZE);
-	if (row == WINY) {
+////////////////////////////////////////////////////////////////////////////////////////
+
+    cur = (540 / (1.0f * i)) * cos(all->lens);
+    weight = cur / (all->rc.ray.dist / 64);
+
+    fx = ((int)((weight * (all->rc.ray.fx / 64) + (1.0f - weight) * (all->p.x / 64)) * 64) % 64);
+    fy = ((int)((weight * (all->rc.ray.fy / 64) + (1.0f - weight) * (all->p.y / 64)) * 64) % 64);
+		
+
+	if (x == 540) {
 		printf("cur: %f\n", cur);
 		printf("weight %f\n", weight);
 		printf("all->rc.ray.fx %f\n", all->rc.ray.fx);
 		printf("all->rc.ray.fy %f\n", all->rc.ray.fy);
 		printf("all->p.x %f\n", all->p.x);
 		printf("all->p.y %f\n", all->p.y);
+		printf("fx: %d\n", fx);
+		printf("fy: %d\n", fy);
+		printf("all->start_wall: %d\n", all->start_wall);
 	}
+
+    ft_fill_pixel(&all->fp, x, i, ft_color_textures(&all->textures.img_d,
+        fx, fy));
+
+////////////////////////////////////////////////////////////////////////////////////////
+
 
     // fx = (int)((weight * all->rc.ray.fx + (1.0f - weight) * all->p.x) *
     //     all->textures.img_d.width) % all->textures.img_d.width;
     // fy = (int)((weight * all->rc.ray.fy + (1.0f - weight) * all->p.y) *
     //     all->textures.img_d.height) % all->textures.img_d.height;
-    fx = ((int)((weight * (all->rc.ray.fx / (int)BLOCK_SIZE)+ (1.0f - weight) * (all->p.x / (int)BLOCK_SIZE)) * (int)BLOCK_SIZE) % (int)BLOCK_SIZE);
-    fy = ((int)((weight * (all->rc.ray.fy / (int)BLOCK_SIZE)+ (1.0f - weight) * (all->p.y / (int)BLOCK_SIZE)) * (int)BLOCK_SIZE) % (int)BLOCK_SIZE);
-		
-
-	if (row == WINY) {
-		printf("fx: %d\n", fx);
-		printf("fy: %d\n", fy);
-	}
-    ft_fill_pixel(&all->fp, row, lines, ft_color_textures(&all->textures.img_d,
-        fx, fy));
-
 //     fx = (int)((weight * all->rc.ray.fx + (1.0f - weight) * all->p.x) *
 //         mlx->ceiling->width) % mlx->ceiling->width;
 //     fy = (int)((weight * all->rc.ray.fy + (1.0f - weight) * all->p.y) *
