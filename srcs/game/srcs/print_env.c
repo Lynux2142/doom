@@ -125,7 +125,7 @@ void    floor_casting(t_all *all, int row, int lines, double h) {
 		col = (int)(all->rc.ray.y - ft_roundminf(all->rc.ray.y, BLOCK_SIZE));
 
     cur = WINY / ((2.0f) * lines - WINY);
-    weight = cur / (all->rc.ray.dist / 64);
+    weight = cur / (all->rc.ray.dist / (int)BLOCK_SIZE);
 	if (row == WINY) {
 		printf("cur: %f\n", cur);
 		printf("weight %f\n", weight);
@@ -139,8 +139,8 @@ void    floor_casting(t_all *all, int row, int lines, double h) {
     //     all->textures.img_d.width) % all->textures.img_d.width;
     // fy = (int)((weight * all->rc.ray.fy + (1.0f - weight) * all->p.y) *
     //     all->textures.img_d.height) % all->textures.img_d.height;
-    fx = ((int)((weight / (all->rc.ray.fx / 64)+ (1.0f - weight) * (all->p.x / 64)) * 64) % 64);
-    fy = ((int)((weight / (all->rc.ray.fy / 64)+ (1.0f - weight) * (all->p.y / 64)) * 64) % 64);
+    fx = ((int)((weight * (all->rc.ray.fx / (int)BLOCK_SIZE)+ (1.0f - weight) * (all->p.x / (int)BLOCK_SIZE)) * (int)BLOCK_SIZE) % (int)BLOCK_SIZE);
+    fy = ((int)((weight * (all->rc.ray.fy / (int)BLOCK_SIZE)+ (1.0f - weight) * (all->p.y / (int)BLOCK_SIZE)) * (int)BLOCK_SIZE) % (int)BLOCK_SIZE);
 		
 
 	if (row == WINY) {
@@ -148,7 +148,7 @@ void    floor_casting(t_all *all, int row, int lines, double h) {
 		printf("fy: %d\n", fy);
 	}
     ft_fill_pixel(&all->fp, row, lines, ft_color_textures(&all->textures.img_d,
-        fx - BLOCK_SIZE, fy));
+        fx, fy));
 
 //     fx = (int)((weight * all->rc.ray.fx + (1.0f - weight) * all->p.x) *
 //         mlx->ceiling->width) % mlx->ceiling->width;
