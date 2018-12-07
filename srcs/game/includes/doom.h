@@ -44,6 +44,8 @@
 # define TEXT_DOOR		F_TEXT"door.xpm"
 # define TEXT_DOOR_R	F_TEXT"door_reverse.xpm"
 # define TEXT_NETHER	F_TEXT"nether.xpm"
+# define TEXT_CEIL		F_TEXT"mossy.xpm"
+# define TEXT_FLOOR		F_TEXT"colorstone.xpm"
 # define SPR_WALK		F_SPRITE"Walk_Sprite2.xpm"
 # define SPR_JUMP		F_SPRITE"Jump_Sprite2.xpm"
 # define SPR_CROUCH		F_SPRITE"Crouch_Sprite2.xpm"
@@ -57,6 +59,7 @@
 # define S_TELEPORT		F_SOUNDS"teleport.wav"
 # define S_WIN			F_MUSIC"win.wav"
 # define BLOCK_SIZE		64.0
+# define BS_INT			64
 # define CAM_HEIGHT		BLOCK_SIZE / 2.0
 # define FOV			60.0
 # define RAY_ANGLE		FOV / (double)WINX
@@ -252,6 +255,8 @@ typedef struct	s_textures
 	t_img		img_d;
 	t_img		img_dr;
 	t_img		nether;
+	t_img		ceil;
+	t_img		floor;
 }				t_textures;
 
 typedef struct	s_musics
@@ -362,5 +367,7 @@ void			it_is_the_end(t_all *all);
 void			mute_sound(t_all *all);
 void			init_xpm(t_mlx ptr, t_img *img, char *path);
 void		    floor_casting(t_all *all, int row, int lines);
+void		    ceil_casting(t_all *all, int row, int lines);
+int				ft_color_textures(t_img *ptr, double cpt, int col);
 
 #endif

@@ -53,6 +53,8 @@ static void	init_textures(t_all *all, t_textures *textures)
 	init_xpm(all->ptr, &textures->img_d, TEXT_DOOR);
 	init_xpm(all->ptr, &textures->img_dr, TEXT_DOOR_R);
 	init_xpm(all->ptr, &textures->nether, TEXT_NETHER);
+	init_xpm(all->ptr, &textures->ceil, TEXT_CEIL);
+	init_xpm(all->ptr, &textures->floor, TEXT_FLOOR);
 }
 
 static void	init_hud(t_all *all, t_hud *hud)
