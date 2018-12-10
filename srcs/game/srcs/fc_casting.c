@@ -29,8 +29,9 @@ void    floor_casting(t_all *all, int x, int i)
     // fy = (int)((weight * (all->rc.ray.y / BS_INT)
 	// 		+ (1.0f - weight) * (all->p.y / BS_INT)) * BS_INT) % BS_INT;
 
-	h = ((((float)all->start_wall / (float)WINY) * 712.8f) / WINY) + 0.1;
-    cur = (WINY / ((1.66f) * i - (WINY * h))) / cos(all->lens);
+    i = i - ((/* 1 -  */all->wall_gap) + all->start_wall);
+	h = (((((float)all->start_wall) / (float)WINY) * 712.8f) / WINY);
+    cur = (WINY / ((1.33f + all->wall_gap * 1.5) * i - (WINY * h))) / cos(all->lens);
     weight = cur / (all->rc.ray.dist / BS_INT);
 
     fx = (int)((weight * (all->rc.ray.x / BS_INT)
@@ -38,9 +39,11 @@ void    floor_casting(t_all *all, int x, int i)
     fy = (int)((weight * (all->rc.ray.y / BS_INT)
 			+ (1.0f - weight) * (all->p.y / BS_INT)) * BS_INT) % BS_INT;
 
-    if (i == 320) {
-        printf("all->wall_gap: %f\n", all->wall_gap);
-        printf("all->start_wall: %d\n", all->start_wall);
+    if (x == 320) {
+        // printf("all->wall_gap: %f\n", all->wall_gap);
+        // printf("all->start_wall: %d\n", all->start_wall);
+        // printf("h: %f\n", h);
+        printf("i: %d\n", i);
     }
 
     ft_fill_pixel(&all->fp, x, i,
