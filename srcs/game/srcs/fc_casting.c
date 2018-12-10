@@ -29,8 +29,9 @@ void    floor_casting(t_all *all, int x, int i)
     // fy = (int)((weight * (all->rc.ray.y / BS_INT)
 	// 		+ (1.0f - weight) * (all->p.y / BS_INT)) * BS_INT) % BS_INT;
 
-    i = i - ((/* 1 -  */all->wall_gap) + all->start_wall);
+    // i = i - ((/* 1 -  */all->wall_gap) + all->start_wall);
 	h = (((((float)all->start_wall) / (float)WINY) * 712.8f) / WINY);
+	// h = 1;
     cur = (WINY / ((1.33f + all->wall_gap * 1.5) * i - (WINY * h))) / cos(all->lens);
     weight = cur / (all->rc.ray.dist / BS_INT);
 

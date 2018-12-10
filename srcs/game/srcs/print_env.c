@@ -96,7 +96,8 @@ void			ft_print_on_screen(t_all *all, int x, double lens)
 	while (++i < WINY)
 	{
 		if ((double)i <= (all->start_wall - (h * (2.0 + all->wall_gap))))
-			ceil_casting(all, x, i);
+			floor_casting(all, x, i);
+			// ceil_casting(all, x, i);
 		else if ((double)i >= (all->start_wall + (h * (2.0 - all->wall_gap))))
 			floor_casting(all, x, i);
 		else
