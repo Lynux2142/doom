@@ -6,7 +6,7 @@
 /*   By: cmace <cmace@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 09:14:15 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/11/30 21:30:05 by cmace            ###   ########.fr       */
+/*   Updated: 2018/12/07 17:48:51 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "libvect.h"
 # include "libft.h"
 
-# define WIN_DIM	30
+# define WIN_DIM	20
 # define WIN_WIDTH	WIN_HEIGHT + 18 * SCALE
 # define WIN_HEIGHT	(MAP_HEIGHT + 2) * WIN_DIM
 # define MAP_WIDTH	32
@@ -31,8 +31,9 @@
 # define START		's'
 # define END		'e'
 # define FLOOR		' '
-# define TP_S		'3'
-# define TP_E		'4'
+# define T_BARREL	'0'
+# define TP_S		'1'
+# define TP_E		'2'
 # define T_A		'A'
 # define T_B		'B'
 # define T_C		'C'
@@ -41,7 +42,6 @@
 # define T_BS		'b'
 # define T_CS		'c'
 # define T_DS		'd'
-# define T_BARREL	'0'
 # define T_DOOR		'-'
 # define TRUE		1
 # define FALSE		0
@@ -54,10 +54,10 @@
 # define TEXT_C		F_TEXT"stone1.xpm"
 # define TEXT_D		F_TEXT"ice1.xpm"
 # define TEXT_DOOR	F_TEXT"door.xpm"
+# define TEXT_BARREL	F_TEXT"barrel.png"
 # define ERASER		F_IMAGE"eraser.png"
 # define TEXT_SOUND	F_IMAGE"sound.png"
 # define TEXT_MUTE	F_IMAGE"soundmute.png"
-# define TEXT_BARREL	F_IMAGE"soundmute.png"
 # define FONT		F_FONT"times-new-roman.ttf"
 # define S_WOOD		F_SOUNDS"pose.wav"
 # define S_METAL	F_SOUNDS"pose.wav"
@@ -118,7 +118,6 @@ enum				e_button
 	STONE,
 	ICE,
 	COLISION,
-	BARREL,
 	NO_COLISION,
 	TP_START,
 	TP_END,
@@ -127,7 +126,8 @@ enum				e_button
 	B_ERASER,
 	B_END,
 	B_SOUND,
-	B_MUTE
+	B_MUTE,
+	BARREL
 };
 
 typedef struct		s_parse
